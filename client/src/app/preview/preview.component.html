@@ -1,0 +1,48 @@
+<div class="preview-container">
+  <h2>File Preview</h2>
+  <div class="revision-controls">
+    <div class="revision-info">
+      <ng-container *ngIf="newestRevision !== null">
+        <span class="revision-count">
+          {{ currentRevision === null ? 'Latest' : 'Revision ' + currentRevision }}
+          <span class="total-revisions">({{ newestRevision + 1 }} revisions)</span>
+        </span>
+      </ng-container>
+    </div>
+    <div class="revision-buttons">
+      <button class="nav-button" 
+              (click)="loadOlderRevision()" 
+              [disabled]="!canGoOlder">
+        ← Older
+      </button>
+      <button class="latest-button"
+              (click)="loadLatestRevision()" 
+              [disabled]="!canGoLatest">
+        Latest
+      </button>
+      <button class="nav-button"
+              (click)="loadNewerRevision()" 
+              [disabled]="!canGoNewer">
+        Newer →
+      </button>
+    </div>
+  </div>
+  
+  <div class="preview-content" *ngIf="fileUrl">
+    <ng-container [ngSwitch]="fileType">
+      <img *ngSwitchCase="'image'" [src]="fileUrl" alt="File preview">
+      <iframe type="application/pdf" *ngSwitchCase="'pdf'" [src]="fileUrl" width="100%" height="600px"></iframe>
+      <div *ngSwitchCase="'word'" class="download-link">
+        <p>Word document preview not available</p>
+        <a [href]="fileUrl" [download]="filename">Download Word Document</a>
+      </div>
+      <div *ngSwitchCase="'excel'" class="download-link">
+        <p>Excel spreadsheet preview not available</p>
+        <a [href]="fileUrl" [download]="filename">Download Excel Spreadsheet</a>
+      </div>
+      <div *ngSwitchDefault class="download-link">
+        <a [href]="fileUrl" [download]="filename"]>Download File</a>
+      </div>
+    </ng-container>
+  </div>
+</div> 

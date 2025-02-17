@@ -1,0 +1,11 @@
+<nav class="nav-menu">
+  <ng-container *ngIf="!authService.isLoggedIn()">
+    <a routerLink="/login">Login</a>
+    <a routerLink="/register">Register</a>
+  </ng-container>
+  <ng-container *ngIf="authService.isLoggedIn()">
+    <a routerLink="/upload">Upload</a>
+    <a href="#" (click)="logout($event)">Logout</a>
+  </ng-container>
+</nav>
+<router-outlet></router-outlet>

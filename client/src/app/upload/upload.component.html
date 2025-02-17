@@ -1,0 +1,37 @@
+<div class="upload-container">
+  <h2>Upload File</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="urlPath">URL Path:</label>
+      <input 
+        type="text" 
+        id="urlPath" 
+        [(ngModel)]="urlPath" 
+        name="urlPath" 
+        required
+        placeholder="/your/path">
+      <small class="help-text">Example: /folder/file.pdf</small>
+      <!-- <button 
+        type="button" 
+        class="preview-btn" 
+        (click)="previewFile()" 
+        [disabled]="!urlPath">
+        Preview Existing
+      </button> -->
+    </div>
+    <div class="form-group">
+      <label for="file">File:</label>
+      <input 
+        type="file" 
+        id="file" 
+        (change)="onFileSelected($event)" 
+        required>
+    </div>
+    <button type="submit" [disabled]="!selectedFile">Upload</button>
+  </form>
+
+  <div class="upload-result" *ngIf="uploadedFileUrl">
+    <p>File uploaded successfully! View it here:</p>
+    <a [routerLink]="uploadedFileUrl">{{ uploadedFileUrl }}</a>
+  </div>
+</div> 

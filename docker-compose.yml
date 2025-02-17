@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./api
+    ports:
+      - "5555:5555"
+    volumes:
+      - ./api/instance:/app/instance
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+      - JWT_SECRET_KEY=your-secure-secret
+    networks:
+      - app-network
+
+  client:
+    build: ./client
+    ports:
+      - "3333:3333"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - api
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge 
